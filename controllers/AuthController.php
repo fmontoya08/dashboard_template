@@ -6,9 +6,9 @@ class AuthController {
     private $userModel;
 
     public function __construct() {
-        $database = new Database();
-        $db = $database->getConnection();
-        $this->userModel = new User($db);
+        // Simplemente instanciamos el modelo. 
+        // El modelo se conecta solito a la BD gracias a nuestro código Singleton.
+        $this->userModel = new User(); 
     }
 
     public function login() {

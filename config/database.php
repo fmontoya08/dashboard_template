@@ -1,20 +1,29 @@
 <?php
 class Database {
     private $host = "localhost";
-    private $db_name = "mvc_login";
-    private $username = "root"; // Cambia esto si tienes otro usuario
-    private $password = "";     // Cambia esto si tienes contraseña
-    public $conn;
+    private $db_name = "hyperion_db";
+    private $username = "root";
+    private $password = ""; 
+    private $conn;
+    private static $instance = null;
 
-    public function getConnection() {
-        $this->conn = null;
+    private function __construct() {
         try {
-            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name . ";charset=utf8", $this->username, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $exception) {
-            echo "Error de conexión: " . $exception->getMessage();
+            die("Error de conexión a la Base de Datos: " . $exception->getMessage());
         }
+    }
+    public static function getInstance() {
+        if (self::$instance == null) {
+            self::$instance = new Database();
+        }
+        return self::$instance;
+    }
+    public function getConnection() {
         return $this->conn;
     }
+    private function __clone() {}
 }
 ?>
