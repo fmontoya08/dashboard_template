@@ -5,9 +5,9 @@
 <div class="container-fluid">
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <h1 class="h3 mb-0 text-gray-800">Panel de Control</h1>
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> Generar Reporte
+            <i class="fas fa-download fa-sm text-white-50"></i> Descargar Reporte
         </a>
     </div>
 
@@ -19,11 +19,11 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Alumnos Activos</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">450</div>
+                                Usuarios Activos</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_users ?></div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -36,99 +36,68 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Profesores Registrados</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">32</div>
+                                Sistema Estado</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Óptimo</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
+                            <i class="fas fa-server fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tareas Entregadas
-                            </div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                </div>
-                                <div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar"
-                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                            aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Mensajes / Dudas</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="row">
-
-        <div class="col-xl-8 col-lg-7">
+        <div class="col-lg-12">
             <div class="card shadow mb-4">
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Ingresos / Inscripciones</h6>
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-history"></i> Auditoría: Actividad Reciente de Usuarios</h6>
                 </div>
                 <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-4 col-lg-5">
-            <div class="card shadow mb-4">
-                <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Distribución de Carreras</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Ingeniería
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Licenciatura
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Maestría
-                        </span>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Última Acción</th>
+                                    <th>Fecha de Movimiento</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($actividad_reciente as $actividad): ?>
+                                    <?php 
+                                        if ($actividad['deleted_at'] != null) {
+                                            $accion = "Eliminado";
+                                            $color = "danger";
+                                            $fecha = $actividad['deleted_at'];
+                                        } elseif ($actividad['created_at'] == $actividad['updated_at']) {
+                                            $accion = "Creado";
+                                            $color = "success";
+                                            $fecha = $actividad['created_at'];
+                                        } else {
+                                            $accion = "Actualizado";
+                                            $color = "warning";
+                                            $fecha = $actividad['updated_at'];
+                                        }
+                                    ?>
+                                    <tr>
+                                        <td><strong><?= htmlspecialchars($actividad['name']) ?></strong> <br> <small class="text-muted"><?= htmlspecialchars($actividad['email']) ?></small></td>
+                                        <td><span class="badge badge-<?= $color ?>"><?= $accion ?></span></td>
+                                        <td><?= date('d/m/Y H:i:s', strtotime($fecha)) ?></td>
+                                        <td>
+                                            <?php if($actividad['deleted_at'] == null): ?>
+                                                <i class="fas fa-check-circle text-success"></i> Activo
+                                            <?php else: ?>
+                                                <i class="fas fa-times-circle text-danger"></i> Inactivo
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

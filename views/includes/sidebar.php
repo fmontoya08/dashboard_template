@@ -21,25 +21,17 @@
                 Módulos
             </div>
 
-            <!-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAlumnos"
-                    aria-expanded="true" aria-controls="collapseAlumnos">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Clientes</span>
-                </a>
-                <div id="collapseAlumnos" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Gestión de clientes:</h6>
-                        <a class="collapse-item" href="#">Ver Lista</a>
-                        <a class="collapse-item" href="#">Agregar Nuevo</a>
-                    </div>
-                </div>
-            </li> -->
-
             <li class="nav-item">
                 <a class="nav-link" href="index.php?action=users">
                     <i class="fas fa-fw fa-users-cog"></i>
                     <span>Usuarios</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=auditorias">
+                    <i class="fas fa-fw fa-clipboard-list"></i>
+                    <span>Auditoría</span>
                 </a>
             </li>
 

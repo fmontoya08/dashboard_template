@@ -6,15 +6,12 @@ class AuthController {
     private $userModel;
 
     public function __construct() {
-        // Simplemente instanciamos el modelo. 
-        // El modelo se conecta solito a la BD gracias a nuestro código Singleton.
-        $this->userModel = new User(); 
+        $this->userModel = new User();
     }
 
     public function login() {
         session_start();
 
-        // Si ya está logueado, lo mandamos al dashboard
         if (isset($_SESSION['user_id'])) {
             header("Location: index.php?action=dashboard");
             exit();
@@ -42,17 +39,21 @@ class AuthController {
             }
         }
 
-        // Cargar la vista de login y pasarle los errores si los hay
         require 'views/login.php';
     }
 
     public function dashboard() {
         session_start();
+        
         if (!isset($_SESSION['user_id'])) {
             header("Location: index.php?action=login");
             exit();
         }
-        require 'views/dashboard.php';
+
+        $total_users = $this->userModel->getTotalActive();
+        $actividad_reciente = $this->userModel->getRecentActivity();
+
+        require_once 'views/dashboard.php';
     }
 
     public function logout() {

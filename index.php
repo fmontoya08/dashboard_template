@@ -1,11 +1,12 @@
 <?php
 require_once 'controllers/AuthController.php';
-require_once 'controllers/userController.php';
+require_once 'controllers/UserController.php';
+require_once 'controllers/AuditController.php';
 
 $controller = new AuthController();
 $userController = new UserController();
+$auditController = new AuditController();
 
-// Capturamos la acción de la URL, por defecto es 'login'
 $action = isset($_GET['action']) ? $_GET['action'] : 'login';
 
 switch ($action) {
@@ -40,6 +41,9 @@ switch ($action) {
     case 'user_delete':
         $id = $_GET['id'];
         $userController->delete($id);
+        break;
+    case 'auditorias':
+        $auditController->index();
         break;
 }
 ?>
