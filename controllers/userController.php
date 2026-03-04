@@ -1,6 +1,6 @@
 <?php
 require_once 'models/User.php';
-require_once 'models/Audit.php'; // 1. Traemos el modelo de auditoría
+require_once 'models/Audit.php';
 
 class UserController {
     private $userModel;
@@ -8,9 +8,8 @@ class UserController {
 
     public function __construct() {
         $this->userModel = new User();
-        $this->auditModel = new Audit(); // 2. Lo instanciamos
+        $this->auditModel = new Audit(); 
         
-        // Arrancamos sesión en el constructor para asegurar tener $_SESSION['user_id']
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -31,10 +30,9 @@ class UserController {
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            // Creamos al usuario y recibimos su nuevo ID
             $new_user_id = $this->userModel->create($name, $email, $password);
 
-            // REGISTRO DE AUDITORÍA
+        
             $new_values = ['name' => $name, 'email' => $email];
             $this->auditModel->log($_SESSION['user_id'], 'CREATE', 'users', $new_user_id, null, $new_values);
 
@@ -54,14 +52,11 @@ class UserController {
             $email = $_POST['email'];
             $password = $_POST['password']; 
 
-            // 1. Obtenemos los datos viejos ANTES de actualizar
             $old_data = $this->userModel->getById($id);
             $old_values = ['name' => $old_data['name'], 'email' => $old_data['email']];
 
-            // 2. Actualizamos
             $this->userModel->update($id, $name, $email, $password);
 
-            // 3. REGISTRO DE AUDITORÍA
             $new_values = ['name' => $name, 'email' => $email];
             $this->auditModel->log($_SESSION['user_id'], 'UPDATE', 'users', $id, $old_values, $new_values);
 
@@ -70,14 +65,14 @@ class UserController {
     }
 
     public function delete($id) {
-        // 1. Obtenemos los datos viejos ANTES de borrar
+    
         $old_data = $this->userModel->getById($id);
         $old_values = ['name' => $old_data['name'], 'email' => $old_data['email']];
 
-        // 2. Borramos (Soft Delete)
+   
         $this->userModel->softDelete($id);
 
-        // 3. REGISTRO DE AUDITORÍA
+     
         $this->auditModel->log($_SESSION['user_id'], 'DELETE', 'users', $id, $old_values, null);
 
         header("Location: index.php?action=users");

@@ -1,5 +1,5 @@
 <?php
-require_once 'models/Audit.php'; // Cambiamos a Audit.php
+require_once 'models/Audit.php';
 
 class AuditController {
     private $auditModel;
@@ -8,16 +8,21 @@ class AuditController {
         $this->auditModel = new Audit();
     }
 
+    private function startSessionSafe() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
+
     public function index() {
-        session_start();
+        $this->startSessionSafe();
+
         if (!isset($_SESSION['user_id'])) {
             header("Location: index.php?action=login");
             exit();
         }
 
-        // Traemos TODO desde la tabla real de auditorías
         $actividades = $this->auditModel->getAll();
         require_once 'views/audits/index.php';
     }
 }
-?>

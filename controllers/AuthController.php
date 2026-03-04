@@ -9,8 +9,14 @@ class AuthController {
         $this->userModel = new User();
     }
 
+    private function startSessionSafe() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
+
     public function login() {
-        session_start();
+        $this->startSessionSafe();
 
         if (isset($_SESSION['user_id'])) {
             header("Location: index.php?action=dashboard");
@@ -43,7 +49,7 @@ class AuthController {
     }
 
     public function dashboard() {
-        session_start();
+        $this->startSessionSafe();
         
         if (!isset($_SESSION['user_id'])) {
             header("Location: index.php?action=login");
@@ -57,11 +63,10 @@ class AuthController {
     }
 
     public function logout() {
-        session_start();
+        $this->startSessionSafe();
         session_unset();
         session_destroy();
         header("Location: index.php?action=login");
         exit();
     }
 }
-?>
