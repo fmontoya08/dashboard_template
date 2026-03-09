@@ -109,5 +109,17 @@ class User {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function findByEmail($email){
+        $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $email = htmlspecialchars(strip_tags($email));
+        $stmt->bindParam(":email", $email);
+        $stmt->execute();
+        if($stmt->rowCount() > 0) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        return false;
+    }
+
 }
 ?>
